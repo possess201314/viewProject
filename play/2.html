@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title></title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6{
+            margin: 0;
+            font-size: 20px;
+        }
+        ul,ol{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #666;
+        }
+        img{
+            display: block;
+            background-size: 100%;
+        }
+        #app{
+            width: 100%;
+            height: 100vh;
+            background: #eee;
+            background-size: 100% 100%;
+        }
+        .main{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+           
+        }
+        .main div{
+          position: relative;
+          width: 110px;
+          height: 168px;
+          margin-top: 100px;
+        }
+        .main div img{
+          width: 100%;
+          height: 100%;
+        }
+        .main div p{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 40px;
+          height: 20px;
+          text-align: center;
+          line-height: 20px;
+          background: #eee;
+          color: #666;
+        }
+        .pen{
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: 100%;
+      	 	padding-top:100px;
+        }
+        .pen div{
+          position: relative;
+          width: 50px;
+          height: 157px;
+         
+        }
+        .pen div img{
+          width: 100%;
+          height: 100%;
+        }
+        .pen div p{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 60px;
+          height: 20px;
+          text-align: center;
+          line-height: 20px;
+          background: #eee;
+          color: #666;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="main">
+       <div class="home1">
+          <img src="img/home1.png">
+          <p>A房</p>        
+        </div>
+        <div class="home2">
+          <img src="img/home2.png">
+          <p>B房</p>
+        </div>
+        <div class="home3">
+          <img src="img/home3.png">
+          <p>C房</p>
+        </div>
+      </div>
+      <div class="pen">
+        <div class="pen1">
+           <img src="img/pen1.png">
+          	<p>A蜡笔</p>
+        </div>
+        <div class="pen2">
+          <img src="img/pen2.png">
+          <p>B蜡笔</p>
+        </div>
+        <div class="pen3">
+            <img src="img/pen3.png">
+            <p>C蜡笔</p>
+          </div>
+      </div>
+    </div>
+    <script>
+    	let allPen=document.querySelectorAll('.pen div');
+    	let allHome=document.querySelectorAll('.main div');
+ 			console.log(allPen[0].clientX)
+// 			let positionAll=[];
+// 			for(let i=0;i<allPen.length;i++){
+// 				let curLeft=allPen[i].clienX;
+// 				le
+// 			}
+			let	startX,
+					startY,
+					touchStartX,
+					touchStartY,
+					lastX = startX,
+					lastY = startY,
+					deltaX,
+					deltaY;
+    	for(let i=0;i<allPen.length;i++){
+    	
+						allPen[i].addEventListener('touchstart',(ev)=>{
+							console.log(allPen[i])
+								startX = allPen[i].offsetLeft,
+								startY = allPen[i].offsetTop,
+								lastX = startX,
+								lastY = startY,
+		    				touchStartX = ev.targetTouches[0].clientX;
+								touchStartY = ev.targetTouches[0].clientY;
+							
+		    		})
+		    		allPen[i].addEventListener("touchmove",function(ev) {
+		    			
+		    			
+							var touchMoveX = ev.targetTouches[0].clientX;
+							var touchMoveY = ev.targetTouches[0].clientY;
+							deltaX =  touchMoveX - touchStartX;
+							deltaY =  touchMoveY - touchStartY;
+							
+							allPen[i].style.transform = 'translate3d('+(lastX + deltaX)+'px,'+(lastY + deltaY)+'px,0)'
+							console.log(lastX,deltaX)
+		    		});
+						allPen[i].addEventListener('touchend',function(ev) {
+							lastX += deltaX;
+							lastY += deltaY;
+						})
+   
+    	
+    	}
+    	/*
+    		var oBox = document.querySelector('#box');
+			var startX = oBox.offsetLeft,
+				startY = oBox.offsetTop,
+				touchStartX,
+				touchStartY,
+				lastX = startX,
+				lastY = startY,
+				deltaX,
+				deltaY;
+			oBox.addEventListener('touchstart',function(ev) {
+				touchStartX = ev.targetTouches[0].clientX;
+				touchStartY = ev.targetTouches[0].clientY;
+			});
+		
+			oBox.addEventListener("touchmove",function(ev) {
+				var touchMoveX = ev.targetTouches[0].clientX;
+				var touchMoveY = ev.targetTouches[0].clientY;
+				deltaX =  touchMoveX - touchStartX;
+				deltaY =  touchMoveY - touchStartY;
+
+			
+				this.style.transform = 'translate3d('+(lastX + deltaX)+'px,'+(lastY + deltaY)+'px,0)'
+			});
+
+			oBox.addEventListener('touchend',function(ev) {
+				lastX += deltaX;
+				lastY += deltaY;
+			})
+    	
+    	*/
+    </script>
+  </body>
+</html>
